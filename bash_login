@@ -1,4 +1,0 @@
-#export GLOBUS_DATA=`cat /tmp/globus-test-data`
-python /srv/setup-gcp.py
-/opt/globusconnectpersonal-2.3.9/globusconnectpersonal -start &
-

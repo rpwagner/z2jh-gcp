@@ -15,8 +15,8 @@ tc = globus_sdk.TransferClient(authorizer=authorizer)
 
 ENDPOINT_DOCUMENT = {
   "DATA_TYPE": "endpoint",
-  "display_name": "GCPScriptTest",
-  "description": "Example gridftp endpoint.",
+  "display_name": "Demo Jupyter GCP Endpoint",
+  "description": "Example GCP endpoint used in a Jupyter notebook server",
   "is_globus_connect": True,
 }
 
@@ -25,10 +25,5 @@ if os.path.exists("/home/jovyan/.globusonline/lta"):
     pass
 else:
     create_result = tc.create_endpoint(ENDPOINT_DOCUMENT)
-    print(create_result)
     setup_key = create_result["globus_connect_setup_key"]
-    print(setup_key)
     pid = subprocess.run(['/opt/globusconnectpersonal-2.3.9/globusconnectpersonal', '-setup', setup_key])
-
-    
-
