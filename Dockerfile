@@ -32,5 +32,7 @@ RUN wget https://downloads.globus.org/globus-connect-personal/linux/stable/globu
 RUN tar -xzvf /tmp/globusconnectpersonal-latest.tgz -C /opt
 
 ADD setup-gcp.py /srv/setup-gcp.py
-#ADD globus-test-data /tmp/globus-test-data
-ADD bash_login /home/jovyan/.bash_login
+ADD start-gcp.sh /srv/start-gcp.sh
+RUN chmod +x /srv/start-gcp.sh
+ADD jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
+
