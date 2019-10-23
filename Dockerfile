@@ -34,5 +34,5 @@ RUN tar -xzvf /tmp/globusconnectpersonal-latest.tgz -C /opt
 ADD setup-gcp.py /srv/setup-gcp.py
 ADD start-gcp.sh /srv/start-gcp.sh
 RUN chmod +x /srv/start-gcp.sh
-ADD jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
-
+RUN echo "script = '/srv/start-gcp.sh'" >> /etc/jupyter/jupyter_notebook_config.py
+RUN echo "subprocess.check_call(script)" >> /etc/jupyter/jupyter_notebook_config.py
