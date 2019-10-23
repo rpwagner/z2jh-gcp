@@ -35,4 +35,4 @@ ADD setup-gcp.py /srv/setup-gcp.py
 ADD start-gcp.sh /srv/start-gcp.sh
 RUN chmod +x /srv/start-gcp.sh
 RUN echo "script = '/srv/start-gcp.sh'" >> /etc/jupyter/jupyter_notebook_config.py
-RUN echo "check_call(script)" >> /etc/jupyter/jupyter_notebook_config.py
+RUN echo "subprocess.check_call(script)" >> /etc/jupyter/jupyter_notebook_config.py
