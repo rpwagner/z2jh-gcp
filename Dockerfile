@@ -34,5 +34,6 @@ RUN tar -xzvf /tmp/globusconnectpersonal-latest.tgz -C /opt
 ADD setup-gcp.py /srv/setup-gcp.py
 ADD start-gcp.sh /srv/start-gcp.sh
 RUN chmod +x /srv/start-gcp.sh
-ADD jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
-
+RUN echo "c.ContentsManager.untitled_directory = 'Rick Untitled Folder'" >> /etc/jupyter/jupyter_notebook_config.py
+RUN echo "c.ContentsManager.untitled_file = 'Rick Untitled Phile'" >> /etc/jupyter/jupyter_notebook_config.py
+RUN echo "c.ContentsManager.untitled_notebook = 'Rick Untitled Phonebook'" >> /etc/jupyter/jupyter_notebook_config.py
