@@ -1,6 +1,9 @@
 script = '/srv/start-gcp.sh'
 subprocess.check_call(script)
-with open('/Users/rpwagner/.globusonline/lta/client-id.txt', 'r') as f:
+from os.path import expanduser
+home = expanduser("~")
+client_file = '{}/.globusonline/lta/client-id.txt'.format(home)
+with open(client_file, 'r') as f:
     line = f.readline()
     local_endpoint_uuid = line.strip()
     
