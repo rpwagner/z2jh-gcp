@@ -1,0 +1,37 @@
+local_endpoint_id = globus_sdk.LocalGlobusConnectPersonal().endpoint_id
+r = tc.get_endpoint(local_endpoint_id)
+print("Local endpoint: {} ({})".format(r['display_name'], local_endpoint_id))
+
+
+# help(tc.submit_transfer)
+source_endpoint_id = tutorial_endpoint_1
+source_path = "/share/godata/"
+
+dest_endpoint_id = local_endpoint_id
+dest_path = "/~/"
+
+label = "My tutorial transfer"
+
+# TransferData() automatically gets a submission_id for once-and-only-once submission
+tdata = globus_sdk.TransferData(tc, source_endpoint_id,
+                                dest_endpoint_id,
+                                label=label)
+
+## Recursively transfer source path contents
+tdata.add_item(source_path, dest_path, recursive=True)
+
+## Alternatively, transfer a specific file
+# tdata.add_item("/source/path/file.txt",
+#                "/dest/path/file.txt"))
+
+# Ensure endpoints are activated
+tc.endpoint_autoactivate(source_endpoint_id)
+tc.endpoint_autoactivate(dest_endpoint_id)
+
+submit_result = tc.submit_transfer(tdata)
+print("Task ID:", submit_result["task_id"])
+
+ls_iter = tc.operation_ls(dest_endpoint_id, path=dest_path)
+print("==== Endpoint_ls for endpoint {} {} ====".format(dest_endpoint_id, dest_path))
+for item in ls_iter:
+    print("{}: {} [{}]".format(item["type"], item["name"], item["size"]))

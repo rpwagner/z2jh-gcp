@@ -26,4 +26,4 @@ if os.path.exists("/home/jovyan/.globusonline/lta"):
 else:
     create_result = tc.create_endpoint(ENDPOINT_DOCUMENT)
     setup_key = create_result["globus_connect_setup_key"]
-    pid = subprocess.run(['/opt/globusconnectpersonal-2.3.9/globusconnectpersonal', '-setup', setup_key])
+    pid = subprocess.run(['/opt/gcp/globusconnectpersonal', '-setup', setup_key])
