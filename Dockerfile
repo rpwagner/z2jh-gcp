@@ -10,8 +10,7 @@ FROM jupyter/base-notebook:814ef10d64fb
 # NOTE: git is already available in the jupyter/minimal-notebook image.
 USER root
 RUN apt-get update && apt-get install --yes --no-install-recommends \
-    git \
- && rm -rf /var/lib/apt/lists/*
+    git
 USER $NB_USER
 
 RUN pip install nbgitpuller && \
@@ -22,7 +21,7 @@ RUN pip install nbgitpuller && \
 
 # conda/pip/apt install additional packages here, if desired.
 USER root
-RUN apt-get -y --allow-unauthenticated install vim build-essential wget gfortran bison libibverbs-dev libibmad-dev libibumad-dev librdmacm-dev libmlx5-dev libmlx4-dev graphviz gcc make
+RUN apt-get -y --allow-unauthenticated install vim build-essential wget gfortran bison libibverbs-dev libibmad-dev libibumad-dev librdmacm-dev graphviz gcc make
 
 ADD requirements.txt /tmp/requirements.txt
 
@@ -38,3 +37,5 @@ ADD start-gcp.sh /srv/start-gcp.sh
 RUN chmod +x /srv/start-gcp.sh
 ADD gcp_config_additions.py /srv/gcp_config_additions.py
 RUN cat /srv/gcp_config_additions.py >> /etc/jupyter/jupyter_notebook_config.py
+
+RUN rm -rf /var/lib/apt/lists/*
