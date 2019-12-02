@@ -1,31 +1,32 @@
-FROM jupyter/base-notebook:27ba57364579
+FROM jupyter/base-notebook:814ef10d64fb
+# Built from... https://hub.docker.com/r/jupyter/base-notebook/
+#               https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
+# Built from... Ubuntu 18.04
+
+# The jupyter/docker-stacks images contains jupyterhub, jupyterlab and the
+# jupyterlab-hub extension already.
+
+# Example install of git and nbgitpuller.
+# NOTE: git is already available in the jupyter/minimal-notebook image.
+USER root
+RUN apt-get update && apt-get install --yes --no-install-recommends \
+    git \
+ && rm -rf /var/lib/apt/lists/*
+USER $NB_USER
+
+RUN pip install nbgitpuller && \
+    jupyter serverextension enable --py nbgitpuller --sys-prefix
+
+# Uncomment the line below to make nbgitpuller default to start up in JupyterLab
+#ENV NBGITPULLER_APP=lab
 
 # conda/pip/apt install additional packages here, if desired.
 USER root
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-      git \
-      && \
-    apt-get purge && apt-get clean && \
-    apt-get -y --allow-unauthenticated install vim build-essential wget gfortran bison libibverbs-dev libibmad-dev libibumad-dev librdmacm-dev libmlx5-dev libmlx4-dev graphviz gcc make
-
-
-# pin jupyterhub to match the Hub version
-# set via --build-arg in Makefile
-ARG JUPYTERHUB_VERSION=0.8
-
-
+RUN apt-get -y --allow-unauthenticated install vim build-essential wget gfortran bison libibverbs-dev libibmad-dev libibumad-dev librdmacm-dev libmlx5-dev libmlx4-dev graphviz gcc make
 
 ADD requirements.txt /tmp/requirements.txt
 
 ADD tutorial_files.py /srv/tutorial_files.py
-
-RUN pip install --no-cache-dir \
-         https://s3.us-east-2.amazonaws.com/globusworldk8.nick.globuscs.info/jupyterhub-0.8.1.tar.gz \
-         -r /tmp/requirements.txt
-
-
-ADD requirements.txt /tmp/requirements.txt
 
 RUN wget https://downloads.globus.org/globus-connect-personal/linux/stable/globusconnectpersonal-latest.tgz -O /tmp/globusconnectpersonal-latest.tgz
 
