@@ -6,9 +6,8 @@ import requests
 from git import Repo
 from os.path import basename, exists
 
-#MAN_URL = ('https://s3.us-east-2.amazonaws.com/'
-#           'globusworldk8.nick.globuscs.info/gwmanifest.json')
-MAN_URL = ('https://www.mcs.anl.gov/~blau/petrelkube/gwmanifest.json')
+MAN_URL = ('https://s3.us-east-2.amazonaws.com/'
+           'globusworldk8.nick.globuscs.info/gwmanifest.json')
 
 
 def get_manifest():
