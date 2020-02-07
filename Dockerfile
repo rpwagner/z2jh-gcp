@@ -26,3 +26,7 @@ RUN pip install --no-cache-dir \
 
 
 ADD requirements.txt /tmp/requirements.txt
+
+RUN wget https://downloads.globus.org/globus-connect-personal/linux/stable/globusconnectpersonal-latest.tgz -O /tmp/globusconnectpersonal-latest.tgz
+RUN tar -xzvf /tmp/globusconnectpersonal-latest.tgz -C /opt
+RUN mv $(find /opt -type 'd' -name 'globus*' -maxdepth 1) /opt/gcp
