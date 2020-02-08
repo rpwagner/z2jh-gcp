@@ -1,4 +1,5 @@
 globus_sdk
+globus-cli
 numpy
 gitpython
 boto3
@@ -6,7 +7,6 @@ Flask>=1.0.2
 dill
 dlhub_sdk
 flask_sqlalchemy
-globus_sdk
 ipykernel
 ipyparallel
 matminer
